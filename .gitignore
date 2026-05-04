@@ -21,3 +21,6 @@ override.tf.json
 # Ignorar el archivo de CLI de Terraform
 .terraformrc
 terraform.rc
+
+.idea/
+

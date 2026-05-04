@@ -1,18 +1,33 @@
 module "networking" {
-  source              = "./modules/networking"
+  providers = {
+    aws.main = aws.main
+  }
+
+  source = "./modules/networking"
+
   public_subnet_names = var.public_subnet_names
   certificate_domain  = var.certificate_domain
 }
 
 module "kms" {
-  source   = "./modules/kms"
+  providers = {
+    aws.main = aws.main
+  }
+
+  source = "./modules/kms"
+
   capacity = var.capacity
   country  = var.country
   env      = var.env
 }
 
 module "ecr" {
-  source        = "./modules/ecr"
+  providers = {
+    aws.main = aws.main
+  }
+
+  source = "./modules/ecr"
+
   capacity      = var.capacity
   country       = var.country
   env           = var.env
@@ -20,7 +35,12 @@ module "ecr" {
 }
 
 module "alb" {
-  source          = "./modules/alb"
+  providers = {
+    aws.main = aws.main
+  }
+
+  source = "./modules/alb"
+
   capacity        = var.capacity
   country         = var.country
   env             = var.env
@@ -30,7 +50,12 @@ module "alb" {
 }
 
 module "cluster" {
-  source   = "./modules/cluster"
+  providers = {
+    aws.main = aws.main
+  }
+
+  source = "./modules/cluster"
+
   capacity = var.capacity
   country  = var.country
   env      = var.env
@@ -65,10 +90,10 @@ module "ecs_reto" {
   enable_memory_scaling  = false
   container_min_capacity = 1
   container_max_capacity = 3
-  # cpu_utilization_up           = 70
-  # cpu_utilization_down         = 20
-  cpu_utilization_up           = 0.5
-  cpu_utilization_down         = 0.1
+  cpu_utilization_up     = 70
+  cpu_utilization_down   = 20
+  # cpu_utilization_up           = 0.5
+  # cpu_utilization_down         = 0.1
   cooldown_period              = 60
   enable_perrequest_tt_scaling = false
 
